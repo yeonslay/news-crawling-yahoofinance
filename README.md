@@ -69,6 +69,8 @@
 - **목적:**  
 - 중복 저장 방지  
 
+---
+
 ### 6️⃣ cleanup_csv()
 - **기능:** `headline`, `pubdate`, `article`이 모두 비어있는 행을 제거  
 - **입력값:** `csv_path (str)`  
