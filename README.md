@@ -38,11 +38,36 @@
   - 새로 수집된 링크만 병합  
   - 중복행 제거 후 자동 저장 (`UTF-8-SIG`)  
 
+---
+
 ### 4️⃣ scrape_articles()
-- **기능:** Selenium으적:**  
-- 중복 저장 방지  
+- **기능:** Selenium으로 각 뉴스 페이지를 열어 **기사 제목, 발행일, 관련 티커, 본문 크롤링**  
+- **입력값:**  
+- `df (pd.DataFrame)` — 크롤링 대상 링크 목록  
+- `query (str)` — 티커명  
+- `driver (webdriver.Chrome)` — 실행 중인 웹드라이버  
+- `csv_path (str)` — 저장 경로  
+- **출력값:** 없음 (CSV 자동 저장)  
+- **필터링 규칙:**  
+- `PREMIUM` 기사 제외  
+- `Yahoo Finance Video` 제외  
+- 특정 출처 제외: *Motley Fool, Zacks, Benzinga, WSJ, Quartz, Barchart*  
+- **추가 기능:**  
+- ‘Story Continues’ 버튼 클릭 시 추가 본문 자동 병합  
+- 크롤링 실패 시 해당 행 삭제 후 다음 링크로 이동  
+- **저장 결과:**  
+`yahoo_news.csv`에 `[ticker, headline, pubdate, related_tickers, article]` 업데이트  
 
 ---
+
+### 5️⃣ save_filtered()
+- **기능:** 필터링되어 제외된 URL을 `yahoo_filtered.csv`에 기록  
+- **입력값:**  
+- `query (str)` — 티커명  
+- `link (str)` — 제외된 기사 URL  
+- **출력값:** 없음  
+- **목적:**  
+- 중복 저장 방지  
 
 ### 6️⃣ cleanup_csv()
 - **기능:** `headline`, `pubdate`, `article`이 모두 비어있는 행을 제거  
